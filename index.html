@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nespresso E-Commerce Revamp — Project Proposal</title>
+  <style>
+    :root {
+      --espresso: #2B1A0F;
+      --gold:     #C4A45A;
+      --gold-lt:  #E8D5A3;
+      --cream:    #FAF8F5;
+      --white:    #FFFFFF;
+      --body:     #333;
+      --muted:    #777;
+      --border:   #E5E2DC;
+      --warm-bg:  #F3EFE9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--cream);
+      color: var(--body);
+      line-height: 1.6;
+      padding-bottom: 100px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--espresso);
+      padding: 48px 56px 44px;
+      border-left: 6px solid var(--gold);
+    }
+    .header-meta {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    header h1 {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    header p {
+      font-size: 14px;
+      color: var(--gold-lt);
+      margin-bottom: 20px;
+    }
+    .tag {
+      display: inline-block;
+      background: rgba(196,164,90,0.18);
+      color: var(--gold-lt);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 3px;
+      margin-right: 6px;
+      border: 1px solid rgba(196,164,90,0.3);
+    }
+
+    /* ── LAYOUT ── */
+    .content {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 56px;
+    }
+
+    .section { margin-top: 60px; }
+
+    .section-label {
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--espresso);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 50%;
+      margin-right: 12px;
+      flex-shrink: 0;
+      position: relative;
+      top: -1px;
+    }
+
+    .section h2 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section p {
+      font-size: 14.5px;
+      color: #444;
+      max-width: 780px;
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    /* ── DARK CALLOUT ── */
+    .callout {
+      background: var(--espresso);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-top: 8px;
+    }
+    .callout p {
+      font-size: 15px;
+      color: #DDD8D2;
+      line-height: 1.7;
+      margin-bottom: 14px;
+      max-width: 100%;
+    }
+    .callout p:last-child { margin-bottom: 0; }
+    .callout strong { color: var(--gold-lt); }
+
+    /* ── TWO COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 6px;
+    }
+    .box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px 24px;
+    }
+    .box h3 {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .box p { font-size: 14px; color: #444; margin: 0; line-height: 1.65; }
+    .box.gold-top { border-top: 3px solid var(--gold); }
+    .box.esp-top  { border-top: 3px solid var(--espresso); }
+
+    /* ── SCORE TABLE ── */
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-top: 8px;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .score-table th {
+      background: var(--espresso);
+      color: var(--gold);
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+    .score-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--body);
+      vertical-align: middle;
+    }
+    .score-table tr:last-child td { border-bottom: none; }
+    .score-table tr.winner td { background: #FBF6ED; font-weight: 600; }
+    .score-table tr.winner td:first-child { border-left: 4px solid var(--gold); }
+    .score-table tr:not(.winner):hover td { background: var(--warm-bg); }
+    .score-table td.score-total { font-weight: 700; color: var(--espresso); }
+    .star { color: var(--gold); letter-spacing: -1px; }
+    .note { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+    /* ── FINDING ROWS ── */
+    .finding {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+    }
+    .finding.esp { border-left-color: var(--espresso); }
+    .finding-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .finding-label.esp { color: var(--espresso); }
+    .finding p { font-size: 13.5px; color: #444; margin: 0; line-height: 1.6; }
+
+    /* ── UI TABLE ── */
+    .ui-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-top: 8px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .ui-table th {
+      background: var(--espresso);
+      color: var(--gold);
+      padding: 9px 16px;
+      text-align: left;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+    }
+    .ui-table td {
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .ui-table tr:last-child td { border-bottom: none; }
+    .ui-table tr:nth-child(even) td { background: var(--warm-bg); }
+    .ui-table td.dim { font-weight: 600; color: var(--espresso); white-space: nowrap; }
+    .ui-table td.now { color: #a93226; }
+    .ui-table td.should { color: #1a6b3a; }
+
+    /* ── FEATURE LIST ── */
+    .feature-list { list-style: none; margin-top: 6px; }
+    .feature-list li {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      padding: 14px 0;
+      border-bottom: 1px solid #EFEDE8;
+      align-items: start;
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .fn { font-size: 13.5px; font-weight: 600; color: var(--espresso); }
+    .fd { font-size: 13.5px; color: #555; line-height: 1.6; }
+    .fn-tag {
+      display: inline-block;
+      font-size: 10px;
+      background: var(--warm-bg);
+      color: var(--muted);
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 6px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      vertical-align: middle;
+    }
+
+    /* ── COMPETITOR CARDS ── */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .comp-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .comp-hd {
+      background: var(--warm-bg);
+      padding: 9px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--espresso);
+    }
+    .comp-hd span {
+      float: right;
+      font-size: 10px;
+      background: var(--espresso);
+      color: var(--gold-lt);
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .comp-body { padding: 14px 16px; font-size: 13px; color: #555; line-height: 1.65; }
+    .comp-body ul { padding-left: 16px; margin: 0; }
+    .comp-body ul li { margin-bottom: 5px; }
+
+    /* ── AGENT CARDS ── */
+    .agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .agent-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .agent-hd { padding: 12px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; }
+    .agent-hd.gold { background: var(--gold); color: var(--espresso); }
+    .agent-hd.esp  { background: var(--espresso); color: var(--gold-lt); }
+    .agent-body { padding: 16px 20px; font-size: 13.5px; color: #555; line-height: 1.75; }
+    .agent-body ul { padding-left: 18px; margin: 0; }
+    .agent-body ul li { margin-bottom: 5px; }
+
+    /* ── DELIVERABLES ── */
+    .del-item {
+      display: grid;
+      grid-template-columns: 32px 200px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 16px 0;
+      border-bottom: 1px solid #EFEDE8;
+    }
+    .del-item:last-child { border-bottom: none; }
+    .del-num { font-size: 13px; font-weight: 700; color: var(--gold); padding-top: 1px; }
+    .del-title { font-size: 14px; font-weight: 600; color: var(--espresso); line-height: 1.5; }
+    .del-desc { font-size: 13.5px; color: #555; line-height: 1.6; }
+    .del-badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-top: 5px;
+      letter-spacing: 0.04em;
+    }
+    .badge-done { background: #E6F4EA; color: #1a6630; }
+    .badge-pending { background: #FEF3CD; color: #7a5c00; }
+
+    /* ── METRICS ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .metric-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; }
+    .metric-label { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; font-weight: 600; }
+    .metric-card ul { list-style: none; padding: 0; }
+    .metric-card ul li { font-size: 13px; color: #444; padding: 5px 0; border-bottom: 1px solid #F0EDE8; line-height: 1.5; }
+    .metric-card ul li:last-child { border-bottom: none; }
+
+    /* ── NEXT STEPS ── */
+    .next-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px; }
+    .next-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .next-hd { background: var(--espresso); padding: 10px 16px; }
+    .next-phase { font-size: 10px; letter-spacing: 0.12em; font-weight: 700; color: var(--gold); margin-bottom: 2px; }
+    .next-label { font-family: Georgia, serif; font-size: 15px; color: var(--white); font-weight: 400; }
+    .next-body { padding: 14px 16px; font-size: 13px; color: #555; line-height: 1.65; }
+    .next-body ul { padding-left: 16px; margin: 0; }
+    .next-body ul li { margin-bottom: 5px; }
+
+    /* ── STATUS PILLS ── */
+    .status-row { display: flex; gap: 8px; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .pill { font-size: 11px; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+    .pill-phase { background: #E8F0FE; color: #1a56a0; }
+    .pill-scope { background: #E6F4EA; color: #1a6630; }
+    .pill-brand { background: #FBF6ED; color: #7a5c00; border: 1px solid var(--gold-lt); }
+
+    /* ── SECTION DIVIDER ── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 52px 0 0; }
+
+    /* ── DESIGN REFS ── */
+    .ref-bar { display: flex; gap: 12px; margin-top: 6px; }
+    .ref-item { flex: 1; background: var(--espresso); border-radius: 6px; padding: 14px 18px; }
+    .ref-item h4 { font-size: 13px; font-weight: 600; color: var(--gold-lt); margin-bottom: 5px; }
+    .ref-item p { font-size: 12.5px; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.5; }
+
+    @media (max-width: 700px) {
+      .content { padding: 0 20px; }
+      header { padding: 32px 24px; }
+      .two-col, .agent-grid, .comp-grid, .metrics-grid, .next-grid { grid-template-columns: 1fr; }
+      .feature-list li, .del-item { grid-template-columns: 1fr; gap: 4px; }
+      .ref-bar { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-meta">R&amp;D Case Study · Discovery &amp; Define — Phase 1</div>
+  <h1>Nespresso US<br>E-Commerce Website Revamp</h1>
+  <p>Home Page + PDP &nbsp;·&nbsp; Desktop &amp; Mobile &nbsp;·&nbsp; nespresso.com/us/en</p>
+  <div>
+    <span class="tag">Phase 1 Complete</span>
+    <span class="tag">Round 1</span>
+    <span class="tag">May 2026</span>
+  </div>
+</header>
+
+<div class="content">
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- SECTION: BRAND PROFILE -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Brand Profile</div>
+    <h2><span class="section-num" style="background:var(--gold);color:var(--espresso);">✦</span>Nespresso — Brand Identity</h2>
+
+    <!-- Archetype -->
+    <div style="display:grid; grid-template-columns:180px 1fr; gap:0; margin-bottom:2px;">
+      <div style="background:var(--espresso); color:var(--gold); padding:14px 20px; border-radius:8px 0 0 0; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:10px; letter-spacing:.14em; font-weight:700; margin-bottom:6px; color:var(--gold-lt); opacity:.7;">BRAND ARCHETYPE</div>
+        <div style="font-family:Georgia,serif; font-size:22px; font-weight:400; line-height:1.2;">The Ruler</div>
+        <div style="font-size:11px; color:var(--gold-lt); margin-top:4px; opacity:.8;">+ Lover</div>
+      </div>
+      <div style="background:var(--white); border:1px solid var(--border); border-left:none; border-radius:0 8px 0 0; padding:16px 22px;">
+        <div style="font-size:10.5px; letter-spacing:.1em; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">What This Means</div>
+        <p style="font-size:13.5px; color:#444; line-height:1.7; margin:0; max-width:100%;">The <strong>Ruler</strong> archetype owns its category through authority, prestige, and an uncompromising standard of quality. Nespresso doesn't just sell coffee — it sets the terms for what "perfect espresso at home" means. Boutiques on luxury retail streets, George Clooney campaigns, the word "Grand Cru" applied to a capsule — all of it signals control and exclusivity over the category.<br /><br />The secondary <strong>Lover</strong> layer is what keeps it from feeling cold: sensory pleasure, the morning ritual, the jewel-toned capsule palette, the intimacy of a perfectly made cup. Ruler establishes the authority; Lover makes you want to live inside it.</p>
+      </div>
+    </div>
+
+    <!-- Mission -->
+    <div style="display:grid; grid-template-columns:180px 1fr; gap:0; margin-bottom:2px;">
+      <div style="background:var(--warm-bg); padding:14px 20px; display:flex; flex-direction:column; justify-content:center; border-left:1px solid var(--border); border-right:none; border-bottom:1px solid var(--border);">
+        <div style="font-size:10px; letter-spacing:.14em; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">MISSION</div>
+        <div style="font-family:Georgia,serif; font-size:15px; color:var(--espresso); font-weight:400; line-height:1.3;">The Positive Cup</div>
+      </div>
+      <div style="background:var(--white); border:1px solid var(--border); border-left:none; padding:16px 22px;">
+        <div style="font-size:10.5px; letter-spacing:.1em; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">Nespresso's Stated Purpose</div>
+        <p style="font-size:13.5px; color:#444; line-height:1.7; margin:0 0 8px; max-width:100%;">"To deliver the highest quality coffee experiences that inspire individuals and communities to thrive."</p>
+        <p style="font-size:13px; color:#666; line-height:1.6; margin:0; max-width:100%;">Their vision — <em>The Positive Cup</em> — holds that every cup of Nespresso should have a positive impact: on the people who grow it (AAA Sustainable Quality Program, direct farmer partnerships), on the planet (aluminium capsule recycling), and on the person drinking it (perfect espresso, every time). Luxury and sustainability are not in tension for Nespresso — they are the same argument.</p>
+      </div>
+    </div>
+
+    <!-- Positioning Statement -->
+    <div style="display:grid; grid-template-columns:180px 1fr; gap:0; margin-bottom:2px;">
+      <div style="background:var(--warm-bg); padding:14px 20px; display:flex; flex-direction:column; justify-content:center; border-left:1px solid var(--border); border-right:none; border-bottom:1px solid var(--border);">
+        <div style="font-size:10px; letter-spacing:.14em; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">POSITIONING</div>
+        <div style="font-family:Georgia,serif; font-size:15px; color:var(--espresso); font-weight:400; line-height:1.3;">Purposeful Luxury</div>
+      </div>
+      <div style="background:var(--white); border:1px solid var(--border); border-left:none; padding:16px 22px;">
+        <div style="font-size:10.5px; letter-spacing:.1em; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:10px;">Positioning Statement</div>
+        <div style="background:var(--warm-bg); border-left:3px solid var(--gold); padding:12px 16px; border-radius:0 4px 4px 0; margin-bottom:10px;">
+          <p style="font-family:Georgia,serif; font-size:14.5px; color:var(--espresso); line-height:1.75; margin:0; font-style:italic; max-width:100%;">For discerning coffee lovers who believe the daily ritual of espresso deserves the same craft as any luxury experience, Nespresso is the premium coffee system that transforms home brewing into a boutique-quality moment — because extraordinary coffee is not a special occasion. It's every morning.</p>
+        </div>
+        <p style="font-size:12.5px; color:var(--muted); margin:0; line-height:1.6;">Nespresso occupies the space between specialty café (better experience than you can make yourself) and convenience (faster and more consistent than a barista). The positioning is "effortless mastery" — the feeling that you are in control of something beautiful without needing expertise to do it.</p>
+      </div>
+    </div>
+
+    <!-- Value Proposition -->
+    <div style="display:grid; grid-template-columns:180px 1fr; gap:0;">
+      <div style="background:var(--warm-bg); padding:14px 20px; display:flex; flex-direction:column; justify-content:center; border-left:1px solid var(--border); border-right:none; border-bottom:1px solid var(--border); border-radius:0 0 0 8px;">
+        <div style="font-size:10px; letter-spacing:.14em; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">VALUE PROP</div>
+        <div style="font-family:Georgia,serif; font-size:15px; color:var(--espresso); font-weight:400; line-height:1.3;">Four Pillars</div>
+      </div>
+      <div style="background:var(--white); border:1px solid var(--border); border-left:none; padding:16px 22px; border-radius:0 0 8px 0;">
+        <div style="font-size:10.5px; letter-spacing:.1em; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:12px;">Value Proposition Framework</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="border:1px solid var(--border); border-top:3px solid var(--gold); border-radius:4px; padding:12px 14px;">
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); letter-spacing:.04em; margin-bottom:5px;">PERFECT CUP, EVERY TIME</div>
+            <p style="font-size:12.5px; color:#555; line-height:1.6; margin:0;">Precision-engineered machines + expertly sourced capsules remove the variables that make home espresso inconsistent. You don't need barista skills — the system is the skill.</p>
+          </div>
+          <div style="border:1px solid var(--border); border-top:3px solid var(--gold); border-radius:4px; padding:12px 14px;">
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); letter-spacing:.04em; margin-bottom:5px;">THE BOUTIQUE RITUAL, AT HOME</div>
+            <p style="font-size:12.5px; color:#555; line-height:1.6; margin:0;">Nespresso doesn't sell coffee. It sells the morning ritual of making something beautiful for yourself — the tactile capsule, the sound of the machine, the crema. The experience is the product.</p>
+          </div>
+          <div style="border:1px solid var(--border); border-top:3px solid var(--espresso); border-radius:4px; padding:12px 14px;">
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); letter-spacing:.04em; margin-bottom:5px;">A WORLD TO EXPLORE</div>
+            <p style="font-size:12.5px; color:#555; line-height:1.6; margin:0;">50+ capsule varieties from Kenya, Colombia, Ethiopia, India — each named, profiled, and designed as a collectible. Discovery is built into the subscription model and the capsule color system.</p>
+          </div>
+          <div style="border:1px solid var(--border); border-top:3px solid var(--espresso); border-radius:4px; padding:12px 14px;">
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); letter-spacing:.04em; margin-bottom:5px;">LUXURY WITH A CONSCIENCE</div>
+            <p style="font-size:12.5px; color:#555; line-height:1.6; margin:0;">AAA Sustainable Quality Program covers 100% of coffee volume. Aluminium capsules are infinitely recyclable. Sustainability isn't a footnote — it's the brand's argument for why premium pricing is justified.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Gap Note -->
+    <div class="finding esp" style="margin-top:16px; margin-bottom:0;">
+      <div class="finding-label esp">WHY THIS MATTERS FOR THE REDESIGN</div>
+      <p>None of these four value pillars — the ritual, the world to explore, the sustainability story, the purposeful luxury positioning — are present on the current US homepage. The homepage opens with a deal. The brand profile above is the brief for what the redesigned homepage must communicate instead.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- SECTION: DESIGN REFERENCES -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Design References</div>
+    <div class="ref-bar">
+      <div class="ref-item">
+        <h4>Aesop</h4>
+        <p>Editorial atmosphere, ritual-forward product storytelling. How a premium product brand should feel digitally — brand-first before product-first.</p>
+      </div>
+      <div class="ref-item">
+        <h4>Le Creuset (R/GA)</h4>
+        <p>Heritage brand + strong color system → editorial + shopping in one DTC flow. Most successful Black Friday in brand history post-redesign.</p>
+      </div>
+      <div class="ref-item">
+        <h4>Glossier</h4>
+        <p>Best-in-class mobile beauty UX and PDP hierarchy. Considered purchase + social proof + editorial content working together seamlessly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 01 BRAND SELECTION -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 01</div>
+    <h2><span class="section-num">1</span>Brand Selection — Candidates in Category</h2>
+    <p>Three brands in the premium at-home coffee category were evaluated as initial candidates. All share the core design challenge: a premium offline brand experience that is not reflected in the digital product.</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:14px;">
+      <div class="box">
+        <h3>Candidate A — Keurig</h3>
+        <p>Dominant US single-serve market leader (~31% market share). 100+ K-Cup pod varieties with no effective discovery system — the same SKU-overwhelm problem as Nespresso. Site is functional but not premium; machine comparison tools are confusing. <strong>Strong IA challenge, but weaker brand identity and visual design potential.</strong></p>
+      </div>
+      <div class="box">
+        <h3>Candidate B — Illy</h3>
+        <p>Italian premium espresso brand (est. 1933). Sophisticated offline identity — artist series cans, Milan flagship, Francis Francis machines. Website has more brand presence than Keurig but the gap between boutique identity and US DTC experience remains significant. <strong>Premium but smaller US market footprint narrows the before/after impact.</strong></p>
+      </div>
+      <div class="box">
+        <h3>Candidate C — Blue Bottle Coffee</h3>
+        <p>Specialty coffee, Nestlé-owned since 2017. Subscription-first, clean editorial design, strong digital-native presence. Their website already does many things right — editorial photography, origin storytelling, clean PDP hierarchy. <strong>Admirable digital execution means limited redesign opportunity.</strong></p>
+      </div>
+    </div>
+    <div class="finding" style="margin-top:14px;">
+      <div class="finding-label">Why Nespresso</div>
+      <p>Nespresso uniquely combines the largest brand-to-digital gap in the category with the richest visual design opportunity. Keurig has the IA problem without the visual richness. Illy has the brand identity without the US-market scale. Blue Bottle has good digital design without a compelling redesign case. Nespresso is the only brand where the gap between what the brand communicates offline and what the website delivers is both large and immediately legible — making it the strongest subject for a rigorous design case study.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 02 BRAND COMPARATIVE LANDSCAPE -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 02</div>
+    <h2><span class="section-num">2</span>Brand Comparative Landscape</h2>
+    <p>Five brands in the premium at-home coffee category evaluated across six criteria. Each criterion scored 1–5; total out of 30.</p>
+
+    <!-- Criteria legend -->
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; margin-top:4px;">
+      <span style="font-size:11px; background:var(--warm-bg); border:1px solid var(--border); padding:4px 10px; border-radius:20px; color:var(--body);">① Visual Potential</span>
+      <span style="font-size:11px; background:var(--warm-bg); border:1px solid var(--border); padding:4px 10px; border-radius:20px; color:var(--body);">② Before/After Impact</span>
+      <span style="font-size:11px; background:var(--warm-bg); border:1px solid var(--border); padding:4px 10px; border-radius:20px; color:var(--body);">③ UI Design Value</span>
+      <span style="font-size:11px; background:var(--warm-bg); border:1px solid var(--border); padding:4px 10px; border-radius:20px; color:var(--body);">④ PDP Richness</span>
+      <span style="font-size:11px; background:var(--warm-bg); border:1px solid var(--border); padding:4px 10px; border-radius:20px; color:var(--body);">⑤ Mobile Urgency</span>
+      <span style="font-size:11px; background:var(--warm-bg); border:1px solid var(--border); padding:4px 10px; border-radius:20px; color:var(--body);">⑥ DTC Opportunity</span>
+    </div>
+
+    <!-- Quadrant diagram -->
+    <div style="background:var(--white); border:1px solid var(--border); border-radius:8px; padding:20px 20px 14px; margin-bottom:20px;">
+      <svg viewBox="0 0 820 530" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Trebuchet MS',sans-serif;">
+        <!-- Quadrant fills -->
+        <rect x="75" y="42" width="335" height="218" fill="#FBF6ED" rx="3"/>
+        <rect x="410" y="42" width="335" height="218" fill="#F7F7F5" rx="3"/>
+        <rect x="75" y="260" width="335" height="218" fill="#F7F7F5" rx="3"/>
+        <rect x="410" y="260" width="335" height="218" fill="#F7F7F5" rx="3"/>
+        <rect x="75" y="42" width="335" height="218" fill="none" stroke="#E0DBD5" stroke-width="1"/>
+        <rect x="410" y="42" width="335" height="218" fill="none" stroke="#E0DBD5" stroke-width="1"/>
+        <rect x="75" y="260" width="335" height="218" fill="none" stroke="#E0DBD5" stroke-width="1"/>
+        <rect x="410" y="260" width="335" height="218" fill="none" stroke="#E0DBD5" stroke-width="1"/>
+        <!-- Quadrant labels -->
+        <text x="90" y="61" font-size="9.5" fill="#C4A45A" font-weight="700" letter-spacing="0.1em">BRAND–DIGITAL GAP</text>
+        <text x="90" y="74" font-size="9" fill="#B8A07A">Untapped potential → redesign opportunity</text>
+        <text x="425" y="61" font-size="9.5" fill="#666" font-weight="700" letter-spacing="0.1em">BRAND LEADERS</text>
+        <text x="425" y="74" font-size="9" fill="#999">Strong brand, strong digital execution</text>
+        <text x="90" y="278" font-size="9.5" fill="#888" font-weight="700" letter-spacing="0.1em">UNDERDEVELOPED</text>
+        <text x="90" y="291" font-size="9" fill="#aaa">Functional positioning, weak digital</text>
+        <text x="425" y="278" font-size="9.5" fill="#888" font-weight="700" letter-spacing="0.1em">DIGITAL-FIRST</text>
+        <text x="425" y="291" font-size="9" fill="#aaa">Functional brand, well-executed site</text>
+        <!-- Axes -->
+        <defs>
+          <marker id="arrX" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0.5 L6,3.5 L0,6.5" fill="none" stroke="#444" stroke-width="1.2"/></marker>
+          <marker id="arrY" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0.5 L6,3.5 L0,6.5" fill="none" stroke="#444" stroke-width="1.2"/></marker>
+        </defs>
+        <line x1="75" y1="260" x2="755" y2="260" stroke="#333" stroke-width="1.5" marker-end="url(#arrX)"/>
+        <line x1="410" y1="480" x2="410" y2="30" stroke="#333" stroke-width="1.5" marker-end="url(#arrY)"/>
+        <!-- Axis labels -->
+        <text x="75" y="277" font-size="11" fill="#555">Poor Digital</text>
+        <text x="758" y="277" font-size="11" fill="#555" text-anchor="start">Excellent Digital</text>
+        <text x="413" y="26" font-size="11" fill="#555">Iconic Brand</text>
+        <text x="413" y="496" font-size="11" fill="#555">Functional Brand</text>
+        <!-- Nespresso — top-left, gold -->
+        <circle cx="185" cy="130" r="48" fill="#C4A45A"/>
+        <text x="185" y="124" text-anchor="middle" font-size="11.5" fill="white" font-weight="700">Nespresso</text>
+        <text x="185" y="139" text-anchor="middle" font-size="10" fill="white">✦ Selected</text>
+        <text x="185" y="153" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.8)">29/30</text>
+        <!-- Blue Bottle — top-right -->
+        <circle cx="600" cy="115" r="34" fill="#5C8A7A"/>
+        <text x="600" y="109" text-anchor="middle" font-size="10" fill="white" font-weight="700">Blue Bottle</text>
+        <text x="600" y="122" text-anchor="middle" font-size="10" fill="white">Coffee</text>
+        <text x="600" y="135" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.8)">21/30</text>
+        <!-- Illy — upper center-right -->
+        <circle cx="530" cy="178" r="30" fill="#8A7A6A"/>
+        <text x="530" y="174" text-anchor="middle" font-size="11" fill="white" font-weight="700">Illy</text>
+        <text x="530" y="187" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.8)">22/30</text>
+        <!-- Starbucks at Home — lower-left -->
+        <circle cx="215" cy="385" r="26" fill="#8C9C95"/>
+        <text x="215" y="380" text-anchor="middle" font-size="9.5" fill="white" font-weight="700">Starbucks</text>
+        <text x="215" y="392" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.85)">at Home</text>
+        <text x="215" y="403" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.7)">15/30</text>
+        <!-- Keurig — lower center -->
+        <circle cx="490" cy="380" r="28" fill="#8896A4"/>
+        <text x="490" y="376" text-anchor="middle" font-size="11" fill="white" font-weight="700">Keurig</text>
+        <text x="490" y="388" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,0.8)">18/30</text>
+        <!-- Legend -->
+        <text x="90" y="516" font-size="9" fill="#bbb">Bubble size = total score /30 · Criteria: Visual Potential · Before/After Impact · UI Design Value · PDP Richness · Mobile Urgency · DTC Opportunity</text>
+      </svg>
+    </div>
+
+    <!-- Brand detail cards -->
+    <div style="display:flex; flex-direction:column; gap:12px;">
+
+      <!-- Nespresso — WINNER -->
+      <div style="background:var(--white); border:2px solid var(--gold); border-radius:8px; overflow:hidden; box-shadow:0 3px 12px rgba(196,164,90,0.18);">
+        <div style="display:grid; grid-template-columns:220px 1fr 80px; align-items:center; background:#FBF6ED; padding:14px 20px; gap:16px;">
+          <div>
+            <div style="font-size:10px; letter-spacing:.12em; font-weight:700; color:var(--gold); margin-bottom:3px;">✦ SELECTED</div>
+            <div style="font-family:Georgia,serif; font-size:18px; color:var(--espresso);">Nespresso</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">nespresso.com/us/en</div>
+          </div>
+          <div style="font-size:12.5px; color:#555; line-height:1.55;">Capsule color palette as design system · Art Deco brand identity · 50+ SKU discovery challenge · Vertuo vs. Original compatibility gap · Subscription UX · Boutique-to-digital translation</div>
+          <div style="text-align:center;">
+            <div style="font-family:Georgia,serif; font-size:32px; color:var(--espresso); font-weight:400; line-height:1;">29</div>
+            <div style="font-size:10px; color:var(--muted); letter-spacing:.08em;">/30</div>
+          </div>
+        </div>
+        <div style="padding:14px 20px; display:grid; grid-template-columns:repeat(6,1fr); gap:10px;">
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px; letter-spacing:.05em;">① VISUAL</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:100%; height:100%; background:var(--gold);"></div></div>
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); margin-top:3px; text-align:right;">5</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px; letter-spacing:.05em;">② IMPACT</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:100%; height:100%; background:var(--gold);"></div></div>
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); margin-top:3px; text-align:right;">5</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px; letter-spacing:.05em;">③ UI VALUE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:100%; height:100%; background:var(--gold);"></div></div>
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); margin-top:3px; text-align:right;">5</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px; letter-spacing:.05em;">④ PDP</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:100%; height:100%; background:var(--gold);"></div></div>
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); margin-top:3px; text-align:right;">5</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px; letter-spacing:.05em;">⑤ MOBILE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:80%; height:100%; background:var(--gold);"></div></div>
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); margin-top:3px; text-align:right;">4</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px; letter-spacing:.05em;">⑥ DTC</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:100%; height:100%; background:var(--gold);"></div></div>
+            <div style="font-size:11px; font-weight:700; color:var(--espresso); margin-top:3px; text-align:right;">5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Illy -->
+      <div style="background:var(--white); border:1px solid var(--border); border-radius:8px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:220px 1fr 80px; align-items:center; background:var(--warm-bg); padding:14px 20px; gap:16px;">
+          <div>
+            <div style="font-size:10px; letter-spacing:.12em; font-weight:700; color:var(--muted); margin-bottom:3px;">CANDIDATE</div>
+            <div style="font-family:Georgia,serif; font-size:18px; color:var(--espresso);">Illy</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">illycaffè.com</div>
+          </div>
+          <div style="font-size:12.5px; color:#555; line-height:1.55;">Premium Italian espresso (est. 1933) · Artist series cans · Francis Francis machines · Strong brand identity, weaker US DTC presence · Before/after gap exists but narrower than Nespresso</div>
+          <div style="text-align:center;">
+            <div style="font-family:Georgia,serif; font-size:32px; color:var(--espresso); font-weight:400; line-height:1;">22</div>
+            <div style="font-size:10px; color:var(--muted); letter-spacing:.08em;">/30</div>
+          </div>
+        </div>
+        <div style="padding:14px 20px; display:grid; grid-template-columns:repeat(6,1fr); gap:10px;">
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">① VISUAL</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:80%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">4</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">② IMPACT</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">③ UI VALUE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:80%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">4</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">④ PDP</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:80%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">4</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">⑤ MOBILE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">⑥ DTC</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blue Bottle -->
+      <div style="background:var(--white); border:1px solid var(--border); border-radius:8px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:220px 1fr 80px; align-items:center; background:var(--warm-bg); padding:14px 20px; gap:16px;">
+          <div>
+            <div style="font-size:10px; letter-spacing:.12em; font-weight:700; color:var(--muted); margin-bottom:3px;">CANDIDATE</div>
+            <div style="font-family:Georgia,serif; font-size:18px; color:var(--espresso);">Blue Bottle Coffee</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">bluebottlecoffee.com</div>
+          </div>
+          <div style="font-size:12.5px; color:#555; line-height:1.55;">Specialty / Nestlé-owned · Subscription-first DTC model · Clean editorial design · Strong origin storytelling · Already doing many things well — limits redesign scope</div>
+          <div style="text-align:center;">
+            <div style="font-family:Georgia,serif; font-size:32px; color:var(--espresso); font-weight:400; line-height:1;">21</div>
+            <div style="font-size:10px; color:var(--muted); letter-spacing:.08em;">/30</div>
+          </div>
+        </div>
+        <div style="padding:14px 20px; display:grid; grid-template-columns:repeat(6,1fr); gap:10px;">
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">① VISUAL</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:80%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">4</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">② IMPACT</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:40%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">2</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">③ UI VALUE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:80%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">4</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">④ PDP</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">⑤ MOBILE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:80%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">4</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">⑥ DTC</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:80%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">4</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keurig -->
+      <div style="background:var(--white); border:1px solid var(--border); border-radius:8px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:220px 1fr 80px; align-items:center; background:var(--warm-bg); padding:14px 20px; gap:16px;">
+          <div>
+            <div style="font-size:10px; letter-spacing:.12em; font-weight:700; color:var(--muted); margin-bottom:3px;">CANDIDATE</div>
+            <div style="font-family:Georgia,serif; font-size:18px; color:var(--espresso);">Keurig</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">keurig.com</div>
+          </div>
+          <div style="font-size:12.5px; color:#555; line-height:1.55;">US single-serve market leader (~31% share) · 100+ K-Cup varieties with no effective discovery · Machine comparison tools confusing · Functional site but not premium · Weaker brand identity limits visual design scope</div>
+          <div style="text-align:center;">
+            <div style="font-family:Georgia,serif; font-size:32px; color:var(--espresso); font-weight:400; line-height:1;">18</div>
+            <div style="font-size:10px; color:var(--muted); letter-spacing:.08em;">/30</div>
+          </div>
+        </div>
+        <div style="padding:14px 20px; display:grid; grid-template-columns:repeat(6,1fr); gap:10px;">
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">① VISUAL</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">② IMPACT</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">③ UI VALUE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">④ PDP</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">⑤ MOBILE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">⑥ DTC</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Starbucks at Home -->
+      <div style="background:var(--white); border:1px solid var(--border); border-radius:8px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:220px 1fr 80px; align-items:center; background:var(--warm-bg); padding:14px 20px; gap:16px;">
+          <div>
+            <div style="font-size:10px; letter-spacing:.12em; font-weight:700; color:var(--muted); margin-bottom:3px;">CANDIDATE</div>
+            <div style="font-family:Georgia,serif; font-size:18px; color:var(--espresso);">Starbucks at Home</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">starbucks.com/shop</div>
+          </div>
+          <div style="font-size:12.5px; color:#555; line-height:1.55;">Massive brand awareness · Retail/app-first strategy makes DTC an afterthought · Generic e-commerce template · Seasonal product drops not reflected in site design · DTC not a strategic priority</div>
+          <div style="text-align:center;">
+            <div style="font-family:Georgia,serif; font-size:32px; color:var(--espresso); font-weight:400; line-height:1;">15</div>
+            <div style="font-size:10px; color:var(--muted); letter-spacing:.08em;">/30</div>
+          </div>
+        </div>
+        <div style="padding:14px 20px; display:grid; grid-template-columns:repeat(6,1fr); gap:10px;">
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">① VISUAL</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">② IMPACT</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:40%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">2</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">③ UI VALUE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">④ PDP</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:40%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">2</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">⑤ MOBILE</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:60%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">3</div>
+          </div>
+          <div>
+            <div style="font-size:9.5px; color:var(--muted); margin-bottom:5px;">⑥ DTC</div>
+            <div style="height:6px; background:var(--border); border-radius:3px; overflow:hidden;"><div style="width:40%; height:100%; background:#B8A07A;"></div></div>
+            <div style="font-size:11px; font-weight:700; color:#888; margin-top:3px; text-align:right;">2</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end brand cards -->
+    <div class="note" style="margin-top:10px;">Criteria scored 1–5 per brand. ① Visual Potential: richness of brand aesthetic and design challenge &nbsp;·&nbsp; ② Before/After Impact: gap between brand standards and current site &nbsp;·&nbsp; ③ UI Design Value: transferable design principles &nbsp;·&nbsp; ④ PDP Richness: complexity of the product detail page challenge &nbsp;·&nbsp; ⑤ Mobile Urgency: genuine mobile-first necessity &nbsp;·&nbsp; ⑥ DTC Opportunity: strategic potential for direct-to-consumer channel</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 03 PROBLEM STATEMENT -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 03</div>
+    <h2><span class="section-num">3</span>Problem Statement</h2>
+    <div class="two-col">
+      <div class="box gold-top">
+        <h3>User Perspective</h3>
+        <p>A shopper arriving at nespresso.com/us/en encounters a site that treats them like a catalog browser. The homepage opens with a promotional deal, not a brand moment. The capsule category page surfaces 8+ taxonomy tabs with no filtering by intensity or flavor — the site itself triggers a live chat prompt mid-browse, signaling that even Nespresso knows the selection is confusing. The PDP gives buyers the absolute minimum to make a decision: two content sections on a product that deserves seven to nine. Users researching their first machine find no compatibility guidance, no origin story, no subscription framing. The brand's premium promise collapses the moment the site loads.</p>
+      </div>
+      <div class="box esp-top">
+        <h3>Business Perspective</h3>
+        <p>Nespresso's boutique stores, editorial campaigns, and jewel-toned capsule palette communicate luxury and ritual. The US website communicates catalog. The before/after gap between what Nespresso is in the world and what it is at nespresso.com/us/en is large, documentable, and immediately legible — making it the ideal subject for a rigorous design case study. Published user research (forced registration, capsule overwhelm, navigation confusion, missing intensity scale) confirms the problems are structural, not cosmetic. Every item on the PDP's "missing" list represents a distinct, solvable design problem.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 04 TARGET AUDIENCE -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 04</div>
+    <h2><span class="section-num">4</span>Target Audience</h2>
+    <div class="two-col">
+      <div class="box">
+        <h3>Primary — Existing Nespresso Users</h3>
+        <p><strong>Urban professionals, ages 25–45.</strong> Regular at-home espresso drinkers who chose Nespresso for convenience, quality, and ritual. Comfortable at premium price points. Exposed to the brand through boutique stores or advertising.<br /><br />
+        <strong>What they need:</strong> Fast capsule reorder, easy subscription setup, new capsule discovery.<br />
+        <strong>Currently blocked by:</strong> No guest checkout, confusing capsule taxonomy, subscription buried in nav.</p>
+      </div>
+      <div class="box">
+        <h3>Secondary — New Machine Buyers</h3>
+        <p><strong>Ages 28–55, high consideration.</strong> Researching a first espresso machine purchase. Comparing Nespresso Original vs. Vertuo vs. competitors (De'Longhi, Breville). May be gifting.<br /><br />
+        <strong>What they need:</strong> Machine comparison, clear Vertuo vs. Original explanation, capsule flavor discovery, social proof, recycling program.<br />
+        <strong>Currently blocked by:</strong> No machine comparison tool, 8+ capsule tabs with no filtering, PDP with no compatibility indicator.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 05 LIVE SITE AUDIT: HOMEPAGE -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 05</div>
+    <h2><span class="section-num">5</span>Live Site Audit — Homepage</h2>
+    <p>Conducted live via browser on nespresso.com/us/en — May 29, 2026.</p>
+
+    <div class="finding">
+      <div class="finding-label">What It Leads With</div>
+      <p>Promotional deal hero — "Vertuo Pop+ Starting at $99" on an orange background. Not a brand statement. Not a coffee ritual. A discount. The brand is Nespresso and it opens like a promotional retailer.</p>
+    </div>
+    <div class="finding">
+      <div class="finding-label">Navigation Bar</div>
+      <p>7 top-level items: Coffee, Machines, Accessories, Collections, AutoReplenish, Sustainability &amp; Recycling, Store Locator, For Business. Heavy and flat — no visual hierarchy. AutoReplenish is a nav item but is not contextually explained anywhere on the homepage.</p>
+    </div>
+    <div class="finding">
+      <div class="finding-label">Scroll Pattern</div>
+      <p>Alternates between visible content sections and large black autoplay video modules that block imagery. On slow mobile connections: full-viewport black gaps. The first non-promotional content section below the fold is "Indulge in exclusive offers" — more deals, still no brand.</p>
+    </div>
+    <div class="finding esp">
+      <div class="finding-label esp">What's Missing Above the Fold</div>
+      <p>No brand story or heritage ("Since 1986") &nbsp;·&nbsp; No coffee ritual or lifestyle framing &nbsp;·&nbsp; No sustainability surface (despite being a nav item) &nbsp;·&nbsp; No capsule color system showcase &nbsp;·&nbsp; No machine discovery by use case &nbsp;·&nbsp; No subscription entry point</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 06 LIVE SITE AUDIT: CATEGORY + PDP -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 06</div>
+    <h2><span class="section-num">6</span>Live Site Audit — Capsule Category &amp; PDP</h2>
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <div class="finding">
+          <div class="finding-label">Capsule Category Page</div>
+          <p>8 visible tabs — Coffee Packs, Nespresso Exclusives, Barista Creations, Single Origin, Ispirazione Italiana, World Explorations, Espresso, Decaffeinated — plus a "›" arrow indicating hidden tabs. Capsule overwhelm made visible in the UI architecture itself.</p>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Product Cards</div>
+          <p>Capsule image, name, flavor tag, size (fl oz), price, ADD TO BAG. No intensity/roast indicator (the 1–13 scale exists elsewhere in the brand but not here). Color coding is visible but not used as a discovery mechanism.</p>
+        </div>
+        <div class="finding esp">
+          <div class="finding-label esp">Live Chat Trigger Mid-Browse</div>
+          <p>"Any questions about our coffee range? Chat here?" fired unprompted during capsule browsing. The site knows its own selection architecture is confusing enough to require live support intervention.</p>
+        </div>
+      </div>
+      <div>
+        <div class="finding">
+          <div class="finding-label">PDP — Freddo Delicato (Barista Creations)</div>
+          <p>Above fold: two-column split — lifestyle image left, purchase widget right. Below fold: one TASTE section, 3–4 sentences, 2 data points (Best served as: Espresso + Iced; Notes: Fruity). Then the footer. The entire PDP is 3 panels of content.</p>
+        </div>
+        <div class="finding esp">
+          <div class="finding-label esp">PDP — What's Missing</div>
+          <p>
+            ❌ No intensity scale (roast level 1–13)<br />
+            ❌ No origin info (Kenya coffee — not surfaced)<br />
+            ❌ No machine compatibility (Original line only — not stated on PDP)<br />
+            ❌ No subscription / AutoReplenish upsell module<br />
+            ❌ No related capsules or cross-sell<br />
+            ❌ No reviews or social proof<br />
+            ❌ No recycling / sustainability information<br />
+            ❌ No recipe content or brew guidance<br />
+            ❌ No quantity selector
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 07 UI ASSESSMENT TABLE -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 07</div>
+    <h2><span class="section-num">7</span>Overall UI Assessment</h2>
+    <table class="ui-table">
+      <thead>
+        <tr><th>Dimension</th><th>Current State</th><th>Brand Should Be</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="dim">Homepage tone</td><td class="now">Promotional retailer</td><td class="should">Premium coffee destination</td></tr>
+        <tr><td class="dim">Visual hierarchy</td><td class="now">Flat — everything feels equal weight</td><td class="should">Editorial — hero → discovery → product</td></tr>
+        <tr><td class="dim">Color use</td><td class="now">Inconsistent: orange hero, purple tiles, black nav</td><td class="should">Capsule palette as the UI system</td></tr>
+        <tr><td class="dim">Typography</td><td class="now">Serviceable but generic</td><td class="should">Expressive — brand uses Art Deco letterforms</td></tr>
+        <tr><td class="dim">PDP depth</td><td class="now">2 content sections</td><td class="should">7–9 sections for a considered purchase</td></tr>
+        <tr><td class="dim">Discovery logic</td><td class="now">Organized by internal product taxonomy</td><td class="should">Organized by buyer intent (intensity, occasion)</td></tr>
+        <tr><td class="dim">Brand story</td><td class="now">Absent from all pages audited</td><td class="should">Heritage (1986), ritual, sustainability surfaced</td></tr>
+        <tr><td class="dim">Mobile readiness</td><td class="now">Video-heavy layout signals high mobile risk</td><td class="should">Mobile-first — primary audience shops on mobile</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 08 COMPETITIVE LANDSCAPE -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 08</div>
+    <h2><span class="section-num">8</span>Competitive Landscape</h2>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-hd">YETI <span>Benchmark</span></div>
+        <div class="comp-body">
+          Webby Award-winning redesign by Code and Theory. Discovery-to-conversion flow built around lifestyle imagery, product comparison tools, and use-case filtering.
+          <ul style="margin-top:10px;">
+            <li>PDPs that make an ice chest feel like an investment worth making</li>
+            <li>Earned premium positioning through site quality alone</li>
+            <li>Lesson: visual storytelling + comparison scaffolding = AOV lift</li>
+          </ul>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-hd">AESOP <span>Reference</span></div>
+        <div class="comp-body">
+          Editorial atmosphere, premium minimalism, ritual-forward product storytelling. Every touchpoint communicates brand ethos before communicating a SKU.
+          <ul style="margin-top:10px;">
+            <li>How coffee-as-ritual should feel digitally</li>
+            <li>Atmosphere through typography, whitespace, art direction</li>
+            <li>Lesson: brand-first homepage before product-first</li>
+          </ul>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-hd">LE CREUSET (R/GA) <span>Reference</span></div>
+        <div class="comp-body">
+          Heritage brand with a strong color system → editorial content + product discovery in one DTC flow. Most successful Black Friday in brand history after redesign.
+          <ul style="margin-top:10px;">
+            <li>Capsule palette → digital color system (direct Nespresso parallel)</li>
+            <li>Shopping + editorial working together, not separately</li>
+            <li>Lesson: color system IS the brand language</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 09 DESIGN OPPORTUNITY -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 09</div>
+    <h2><span class="section-num">9</span>Design Opportunity</h2>
+    <div class="callout">
+      <p>The gap between the Nespresso boutique experience — ultra-premium, curated, ritual-forward — and the US website — promotional, minimal, transactional — is large and immediately legible. Students don't need to be coffee experts to see it. They just need to open the site and compare it to the brand's advertising.</p>
+      <p>The homepage, done right, stops being a deal rotator and starts being <strong>Nespresso's first editorial moment in digital</strong>: the place where the capsule palette, the Art Deco typography, the sustainability program, and the coffee ritual all coexist as a coherent brand experience. The PDP, done right, becomes a masterclass in <strong>considered-purchase information architecture</strong> — intensity scale, origin, compatibility, subscription, social proof, and recipe content all working together to answer every question before it's asked.</p>
+      <p>This is the clearest before/after case study available: a premium brand with strong offline equity and a website that doesn't show up.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 10 SCOPE: HOME PAGE -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 10</div>
+    <h2><span class="section-num">10</span>Feature Scope — Home Page</h2>
+    <ul class="feature-list">
+      <li>
+        <span class="fn">Brand Hero</span>
+        <span class="fd">Replace the promotional deal banner with an editorial-quality opening that expresses Nespresso's brand identity — the capsule palette, the ritual, the premium positioning. The homepage's first job is brand, not discount.</span>
+      </li>
+      <li>
+        <span class="fn">Use-Case Navigation</span>
+        <span class="fd">A visual navigation layer organized by occasion (morning ritual, after dinner, iced, gifting) and intensity rather than Nespresso's internal taxonomy. Buyers don't think in product lines — they think in moments.</span>
+      </li>
+      <li>
+        <span class="fn">Capsule Discovery Entry</span>
+        <span class="fd">A curated, filterable capsule showcase that surfaces the color palette as a design system. The jewel-toned capsule range is Nespresso's single most distinctive visual asset — it should function as the UI, not be buried in a 50-SKU category page.</span>
+      </li>
+      <li>
+        <span class="fn">Machine Discovery Module</span>
+        <span class="fd">A clear entry point for machine comparison by use case — not by technical spec. The Vertuo vs. Original incompatibility is a documented source of buyer errors and returns. Homepage is the right place to orient first-time buyers before they reach a PDP.</span>
+      </li>
+      <li>
+        <span class="fn">Heritage &amp; Brand Story</span>
+        <span class="fd">A purposeful brand moment anchored in "Nespresso since 1986" — the story of perfecting a single espresso. One concise, well-designed section that converts awareness into affinity. Currently absent from every page audited.</span>
+      </li>
+      <li>
+        <span class="fn">Sustainability Module</span>
+        <span class="fd">Nespresso's capsule recycling program is a key brand differentiator and is buried in the nav. Surfacing it on the homepage — with a visual, accessible entry point — speaks directly to the 25–40 audience and differentiates from Keurig.</span>
+      </li>
+      <li>
+        <span class="fn">AutoReplenish / Subscription</span>
+        <span class="fd">The subscription program is a nav item but not contextually explained anywhere on the homepage. A dedicated, benefit-forward module introducing AutoReplenish captures high-LTV customers at the brand moment, not the checkout moment.</span>
+      </li>
+      <li>
+        <span class="fn">Social Proof</span>
+        <span class="fd">Reviews, press mentions, or community signal at homepage level. New machine buyers arrive with open trust questions — answering them before the PDP reduces friction and increases time-on-site for first-time visitors.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 11 SCOPE: PDP -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 11</div>
+    <h2><span class="section-num">11</span>Feature Scope — Product Detail Page</h2>
+    <ul class="feature-list">
+      <li>
+        <span class="fn">Intensity Scale <span class="fn-tag">Missing</span></span>
+        <span class="fd">Nespresso's roast intensity 1–13 scale exists elsewhere in the brand but is absent from the PDP entirely. This is the single most useful data point for a capsule buyer and must be visual, not just text.</span>
+      </li>
+      <li>
+        <span class="fn">Origin Story <span class="fn-tag">Missing</span></span>
+        <span class="fd">The Freddo Delicato uses Kenya coffee. The PDP doesn't mention it. For a premium brand selling considered-choice products, origin is a purchase motivator — especially for Single Origin and World Explorations lines.</span>
+      </li>
+      <li>
+        <span class="fn">Machine Compatibility <span class="fn-tag">Missing</span></span>
+        <span class="fd">Original vs. Vertuo incompatibility is a documented source of buyer errors and returns. Every capsule PDP must make compatibility explicit and visual — not buried in fine print or absent entirely as it is now.</span>
+      </li>
+      <li>
+        <span class="fn">Flavor Profile Visualization</span>
+        <span class="fd">Beyond the text flavor tag ("Sweet &amp; Light"), a visual flavor profile bar showing acidity, body, bitterness, and roast level helps buyers self-qualify quickly — reducing the second-tab behavior that sends them to competitor sites.</span>
+      </li>
+      <li>
+        <span class="fn">Subscription / AutoReplenish Upsell <span class="fn-tag">Missing</span></span>
+        <span class="fd">The capsule PDP is the highest-leverage conversion point for subscription. A contextual, benefit-forward AutoReplenish module — surfaced near the ATC — is absent from every capsule PDP audited.</span>
+      </li>
+      <li>
+        <span class="fn">Reviews &amp; Social Proof <span class="fn-tag">Missing</span></span>
+        <span class="fd">No reviews on any capsule PDP audited. For a considered-choice product with 50+ SKUs, peer validation by flavor and use occasion is a direct conversion driver.</span>
+      </li>
+      <li>
+        <span class="fn">Recipe &amp; Brew Guidance <span class="fn-tag">Missing</span></span>
+        <span class="fd">Nespresso produces recipe content (iced preparations, barista recipes) but it is disconnected from the PDP. Surfacing "how to brew this capsule" at the point of purchase extends average time on PDP and deepens product attachment.</span>
+      </li>
+      <li>
+        <span class="fn">Related Capsules / Cross-Sell <span class="fn-tag">Missing</span></span>
+        <span class="fd">No related capsule or cross-sell module exists on current PDPs. For a brand with 50+ capsule SKUs, in-page discovery keeps buyers in the Nespresso ecosystem rather than bouncing to search for alternatives.</span>
+      </li>
+      <li>
+        <span class="fn">Recycling / Sustainability Badge <span class="fn-tag">Missing</span></span>
+        <span class="fd">Nespresso's aluminium recycling program is a key brand differentiator. A compact, credible sustainability badge — surfaced near the ATC — speaks to the 25–40 audience and answers a live objection about single-use capsules.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 12 AGENT TEAM -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 12</div>
+    <h2><span class="section-num">12</span>Agent Team — Phase 1</h2>
+    <p>Two agents ran in parallel during Discovery &amp; Define. Each reported back independently; Christie reviewed and approved before Phase 2 begins.</p>
+    <div class="agent-grid">
+      <div class="agent-card">
+        <div class="agent-hd gold">RESEARCH AGENT</div>
+        <div class="agent-body">
+          <ul>
+            <li>Brand candidate research — Igloo, Burt's Bees, Stanley</li>
+            <li>Brand comparative landscape — 5 brands, 6 criteria, scored /30</li>
+            <li>Competitive analysis — YETI, Aesop, Le Creuset (R/GA), Keurig, Glossier</li>
+            <li>User research synthesis from published Nespresso case studies (2023)</li>
+            <li>Live site audit — nespresso.com/us/en via browser (Homepage, Category Page, PDP)</li>
+            <li>Target audience definition (primary + secondary)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-hd esp">PLANNING AGENT</div>
+        <div class="agent-body">
+          <ul>
+            <li>Problem statement — user perspective + business perspective</li>
+            <li>Design opportunity framing</li>
+            <li>Target audience needs mapping</li>
+            <li>Value proposition framework</li>
+            <li>Feature scope — Home page (8 modules defined)</li>
+            <li>Feature scope — PDP (9 modules defined, 7 flagged missing from live audit)</li>
+            <li>Discovery questions for client stakeholders</li>
+            <li>Success metrics — conversion, engagement, brand KPIs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 13 PHASE 1 DELIVERABLES -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 13</div>
+    <h2><span class="section-num">13</span>Phase 1 Deliverables</h2>
+    <div class="del-item">
+      <div class="del-num">01</div>
+      <div>
+        <div class="del-title">Research Agent Report</div>
+        <div><span class="del-badge badge-done">Complete</span></div>
+      </div>
+      <div class="del-desc">3 brand candidates evaluated with target audience profiles, site pain point analysis, competitive landscape, key redesign opportunities, and recommendation rationale. Includes data: Igloo 1.0–1.5% conversion on 516K sessions, Dometic $677M acquisition context, YETI Webby Award redesign analysis.</div>
+    </div>
+    <div class="del-item">
+      <div class="del-num">02</div>
+      <div>
+        <div class="del-title">Brand Comparative Landscape</div>
+        <div><span class="del-badge badge-done">Complete</span></div>
+      </div>
+      <div class="del-desc">5 brands scored across 6 criteria (Visual Potential, Before/After Impact, UI Teaching Value, PDP Richness, Mobile-First Urgency, Existing References). Full scoring rationale for each brand. Nespresso 29/30 selected; Le Creuset designated reference benchmark; Smeg flagged mid-redesign risk.</div>
+    </div>
+    <div class="del-item">
+      <div class="del-num">03</div>
+      <div>
+        <div class="del-title">Project Brief</div>
+        <div><span class="del-badge badge-done">Complete</span></div>
+      </div>
+      <div class="del-desc">7-section brief: problem statement (user + business), design opportunity, value proposition framework, feature scope for Home page (8 modules) + PDP (9 modules), discovery questions for client stakeholders, success metrics (conversion targets, engagement KPIs, brand/retention metrics).</div>
+    </div>
+    <div class="del-item">
+      <div class="del-num">04</div>
+      <div>
+        <div class="del-title">Nespresso Live Site Audit</div>
+        <div><span class="del-badge badge-done">Complete</span></div>
+      </div>
+      <div class="del-desc">First-hand browser audit of nespresso.com/us/en conducted May 29, 2026 — Homepage, Capsule Category Page, and Capsule PDP (Freddo Delicato, Barista Creations). Includes UI assessment table across 8 dimensions, 9 missing PDP elements catalogued, and before/after teaching potential confirmed.</div>
+    </div>
+    <div class="del-item">
+      <div class="del-num">05</div>
+      <div>
+        <div class="del-title">Project Proposal</div>
+        <div><span class="del-badge badge-done">Complete</span></div>
+      </div>
+      <div class="del-desc">This document — synthesizing all Phase 1 research into a single proposal covering brand selection, comparative landscape, live audit findings, competitive analysis, scope, agent team, and success metrics. Formatted as a GitHub-hosted web page for professional presentation.</div>
+    </div>
+    <div class="status-row">
+      <span class="pill pill-phase">Phase 1: Discovery &amp; Define</span>
+      <span class="pill pill-scope">Home Page + PDP · Desktop &amp; Mobile</span>
+      <span class="pill pill-brand">Brand: Nespresso US</span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 14 SUCCESS METRICS -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 14</div>
+    <h2><span class="section-num">14</span>Success Metrics</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Conversion</div>
+        <ul>
+          <li>Homepage bounce rate reduction</li>
+          <li>PDP add-to-cart rate increase</li>
+          <li>Checkout initiation rate from PDP</li>
+          <li>Cart abandonment rate reduction</li>
+          <li>AutoReplenish subscription capture rate</li>
+        </ul>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Engagement</div>
+        <ul>
+          <li>Avg. time on PDP (target: reach reviews module)</li>
+          <li>PDP scroll depth — 60%+ reach reviews section</li>
+          <li>Capsule gallery interaction rate</li>
+          <li>Use-case navigation CTR vs. current taxonomy</li>
+          <li>Related capsules cross-sell engagement</li>
+        </ul>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Brand &amp; Retention</div>
+        <ul>
+          <li>Return visitor rate (30 / 90 day)</li>
+          <li>Sustainability module engagement</li>
+          <li>Machine comparison tool usage</li>
+          <li>Post-launch brand perception (qualitative)</li>
+          <li>Before/after case study documentation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- 15 NEXT STEPS -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Section 15</div>
+    <h2><span class="section-num">15</span>Next Steps — After Phase 1 Approval</h2>
+    <div class="next-grid">
+      <div class="next-card">
+        <div class="next-hd">
+          <div class="next-phase">PHASE 2</div>
+          <div class="next-label">IA Agent</div>
+        </div>
+        <div class="next-body">
+          <ul>
+            <li>Sitemap — homepage + capsule catalog structure</li>
+            <li>User flows — discovery to purchase (existing + new buyer)</li>
+            <li>Content hierarchy for Home page modules</li>
+            <li>Navigation architecture — resolving Vertuo vs. Original taxonomy</li>
+            <li>Capsule discovery IA — intensity + occasion filtering logic</li>
+          </ul>
+        </div>
+      </div>
+      <div class="next-card">
+        <div class="next-hd">
+          <div class="next-phase">PHASE 3</div>
+          <div class="next-label">Development Agent</div>
+        </div>
+        <div class="next-body">
+          <ul>
+            <li>Spec documentation from approved IA</li>
+            <li>Component inventory — capsule card, PDP modules, nav</li>
+            <li>Design system — capsule color palette as UI tokens</li>
+            <li>Responsive HTML/CSS build — mobile-first</li>
+            <li>GitHub Pages deployment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="next-card">
+        <div class="next-hd">
+          <div class="next-phase">PHASE 4</div>
+          <div class="next-label">Validation Agent</div>
+        </div>
+        <div class="next-body">
+          <ul>
+            <li>Usability testing checklist against Phase 1 findings</li>
+            <li>QA review — mobile + desktop breakpoints</li>
+            <li>Accessibility audit — WCAG 2.1 AA</li>
+            <li>Before/after comparison documentation</li>
+            <li>Stakeholder feedback framework</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
